@@ -13,7 +13,7 @@ body  {
         font-style: normal;
     }
     .test{
-        @apply border-solid border-2;
+        @apply border-solid border-2 border-black;
     }
     .align-center{
         @apply max-w-6xl mx-auto px-8;
@@ -30,7 +30,10 @@ body  {
     .hover-btn:hover > .bordered {
         @apply border-solid border-2 border-amber-600;
     }
-    
+    .whyus{
+        background-image: url(./assets/images/whyUs/sand3.jpg);
+        background-size: cover;
+    }
 }
 
 @theme inline {
