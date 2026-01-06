@@ -25,13 +25,9 @@ const regionsCarousel = () => {
               return (
                 <CarouselItem key={index}>
                   <Link to={`/research?region=${region.region}`}>
-                    <Card className="relative">
+                    <Card className="relative p-0">
                       <CardContent className="flex items-center justify-center p-0 overflow-hidden max-h-[70vh]">
-                        <img
-                          src={region.photo}
-                          alt=""
-                          className="h-full w-full object-cover"
-                        />
+                        <img src={region.photo} alt="" className="h-full w-full object-cover" />
                         <p className="absolute top-[5%] left-[50%] -translate-x-[50%] capitalize text-[5rem] text-white italic text-shadow">
                           {region.name}
                         </p>

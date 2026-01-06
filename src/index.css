@@ -34,6 +34,9 @@ body  {
         background-image: url(./assets/images/whyUs/sand3.jpg);
         background-size: cover;
     }
+    .advisors{
+        background-image: ;
+    }
 }
 
 @theme inline {

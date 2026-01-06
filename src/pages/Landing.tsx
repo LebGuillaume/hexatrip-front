@@ -1,4 +1,6 @@
 import {
+  Advisors,
+  BestSellersCarousel,
   Gallery,
   RegionsCarousel,
   TagsCarousel,
@@ -10,10 +12,12 @@ const Landing = () => {
   return (
     <>
       <RegionsCarousel />
+      <BestSellersCarousel />
       <TagsCarousel />
       <WhyUsText />
       <WhyUs />
       <Gallery />
+      <Advisors />
     </>
   );
 };

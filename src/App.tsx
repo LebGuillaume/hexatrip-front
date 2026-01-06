@@ -14,6 +14,8 @@ import {
   ResearchPage,
   SingleTripPage,
 } from "./pages";
+import { agenciesLoader } from "./pages/AgenciesPage";
+import { AdvisorsLoader } from "./pages/AdvisorsPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,10 +24,10 @@ const router = createBrowserRouter([
       { index: true, element: <Landing /> },
       { path: "research", element: <ResearchPage /> },
       { path: "research/:id", element: <SingleTripPage /> },
-      { path: "advisors", element: <AdvisorsPage /> },
+      { path: "advisors", element: <AdvisorsPage />, loader: AdvisorsLoader },
       { path: "advisors/:id", element: <AdvisorsSinglePage /> },
       { path: "checkout", element: <CheckoutPage /> },
-      { path: "agencies", element: <AgenciesPage /> },
+      { path: "agencies", element: <AgenciesPage />, loader: agenciesLoader },
       { path: "hotline", element: <HotlinePage /> },
       { path: "profile", element: <ProfilePage /> },
     ],
