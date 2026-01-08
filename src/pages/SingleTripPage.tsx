@@ -1,5 +1,27 @@
+import { localCustomFetch } from "@/axios/customFetch";
+import { BreadCrumbs, SingleTrip } from "@/components";
+import type { Trip } from "@/types/types";
+import { useLoaderData, type LoaderFunction } from "react-router-dom";
+
+export const singleTripPageLoader: LoaderFunction = async ({ params }): Promise<Trip | null> => {
+  try {
+    const response = await localCustomFetch.get<Trip>(`trips/${params.id}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 const SingleTripPage = () => {
-  return <div>SingleTripPage</div>;
+  const { title } = useLoaderData() as Trip;
+
+  return (
+    <>
+      <BreadCrumbs title={title}></BreadCrumbs>
+      <SingleTrip></SingleTrip>
+    </>
+  );
 };
 
 export default SingleTripPage;

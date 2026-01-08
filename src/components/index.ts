@@ -15,4 +15,13 @@ export { default as CustomInput } from "./CustomInput";
 export { default as FiltersAdvisors } from "./FiltersAdvisors";
 export { default as BestSellersCarousel } from "./BestSellersCarousel";
 export { default as Advisors } from "./Advisors";
+export { default as ErrorElement } from "./ErrorElement";
+export { default as BreadCrumbs } from "./BreadCrumbs";
+export { default as CustomSelect } from "./customSelect";
+
+export { default as CustomRange } from "./CustomRange";
+export { default as Filters } from "./Filters";
+export { default as Research } from "./Research";
+export { default as TripCard } from "./TripCard";
+export { default as SingleTrip } from "./singleTrip";
 

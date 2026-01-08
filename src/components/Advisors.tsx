@@ -32,7 +32,7 @@ const Advisors = () => {
     return () => controller.abort();
   }, [fetchEntities]);
   return (
-    <section className="py-8 border-t-2 border-b-2">
+    <section className="advisors py-8 border-t-2 border-b-2">
       <div className="align-center flex flex-col item-center">
         <p className="text-3xl font-thin my-2">Meet Our dedicated Advisors</p>
         <p className="text-2xl font-bold">For each place of france</p>

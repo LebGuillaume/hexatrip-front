@@ -11,4 +11,5 @@ export { default as ProfilePage } from "./ProfilePage";
 export { default as RegisterPage } from "./RegisterPage";
 export { default as ResearchPage } from "./ResearchPage";
 export { default as SingleTripPage } from "./SingleTripPage";
-export { default as SignleTripPage } from "./SignleTripPage";
+export { default as ErrorPage } from "./ErrorPage";
+

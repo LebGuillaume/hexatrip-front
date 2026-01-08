@@ -35,7 +35,13 @@ body  {
         background-size: cover;
     }
     .advisors{
-        background-image: ;
+        background-image: url(./assets/images/advisors/whiteBG.jpg) ;
+    }
+    .hover-card{
+        transition: all 250ms ease-in-out
+    }
+    .hover-card:hover {
+        transform: translateY(-10px);
     }
 }
 

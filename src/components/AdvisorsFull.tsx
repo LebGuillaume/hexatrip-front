@@ -6,8 +6,15 @@ import { Badge } from "./ui/badge";
 
 const AdvisorsFull = () => {
   const advisors = useLoaderData() as Advisor[];
-  console.log(advisors);
-
+  if (advisors.length === 0) {
+    return (
+      <section className="align-center py-8 min-h-[100vh]">
+        <div>
+          <p>No member associated to this destination</p>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="align-center py-8 min-h-[100vh]">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
