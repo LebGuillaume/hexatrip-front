@@ -4,21 +4,27 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { useAppSelector } from "@/hooks";
-import type { ReduxStore } from "@/store";
-import type { Trip } from "@/types/types";
+import { type ReduxStore } from "@/store";
+import { type Trip } from "@/types/types";
 import { regionsCodes } from "@/utils/filtersData";
 import { formatAsEuros, hotelTax } from "@/utils/formatAsEuros";
 import { singleDateFormatter } from "@/utils/singleTripData";
-import { Form, useLoaderData, type LoaderFunction } from "react-router-dom";
+import {
+  type ActionFunction,
+  Form,
+  type LoaderFunction,
+  redirect,
+  useLoaderData,
+} from "react-router-dom";
 
 export const checkoutPageLoader =
   (store: ReduxStore): LoaderFunction =>
-  async (): Promise<Trip | null> => {
+  async (): Promise<Response | Trip | null> => {
     try {
       const checkout = store.getState().checkoutSlice;
       let { trip } = checkout;
       if (!trip) {
-        const localStorageData = JSON.parse(localStorage.getItme("selection") || "");
+        const localStorageData = JSON.parse(localStorage.getItem("selection") || "");
         trip = localStorageData.trip;
       }
 
@@ -29,13 +35,60 @@ export const checkoutPageLoader =
       return null;
     }
   };
+
+export const checkoutPageAction =
+  (store: ReduxStore): ActionFunction =>
+  async ({ request }): Promise<Response | null> => {
+    try {
+      const formData = await request.formData();
+      const clientData = Object.fromEntries(formData);
+      const purchaseData = store.getState().checkoutSlice;
+      const token = store.getState().usersSlice.token;
+      const emailFromStore = store.getState().usersSlice.user.email;
+      if (!clientData.email) {
+        clientData.email = emailFromStore;
+      }
+      const response = await localCustomFetch.post("/create-checkout-session", {
+        items: [
+          {
+            id: purchaseData.trip,
+            quantity: 1,
+            kids: purchaseData.kids,
+            adults: purchaseData.adults,
+          },
+        ],
+        order: {
+          trip: purchaseData.trip,
+          quantity: 1,
+          kids: purchaseData.kids,
+          adults: purchaseData.adults,
+          ...clientData,
+        },
+        token: token,
+      });
+      return redirect(`${response.data.url}`);
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
 const CheckoutPage = () => {
   const selectedTripFromLoader = useLoaderData() as Trip;
+  if (!selectedTripFromLoader) {
+    return (
+      <section className="align-center">
+        <p>Loading trip...</p>
+      </section>
+    );
+  }
   const checkoutDataFromStore = useAppSelector((state) => state.checkoutSlice);
-  const userDataFromStore = useAppSelector((state) => state.usersSlice);
+  const userDataFromStore = useAppSelector((state) => state.usersSlice.user);
+
   const { adults, from, to, kids } = checkoutDataFromStore;
   const { _id, images, adultPrice, duration, region, title, town, youngPrice } =
     selectedTripFromLoader;
+
   const apiImageUrl = apiUrl + "/images/trips/" + _id + "/" + images[0];
   const totalPrice = adults * adultPrice + kids * youngPrice;
 
@@ -51,7 +104,7 @@ const CheckoutPage = () => {
                 label="first name"
                 name="firstname"
                 type="search"
-                defaultValue={userDataFromStore?.user.firstname || ""}
+                defaultValue={userDataFromStore?.firstname || ""}
                 classname="w-full"
                 required
               />
@@ -59,7 +112,7 @@ const CheckoutPage = () => {
                 label="family name"
                 name="familyname"
                 type="search"
-                defaultValue={userDataFromStore?.user.familyname || ""}
+                defaultValue={userDataFromStore?.familyname || ""}
                 classname="w-full"
                 required
               />
@@ -69,7 +122,7 @@ const CheckoutPage = () => {
                 label="email"
                 name="email"
                 type="search"
-                defaultValue={userDataFromStore?.user.email || ""}
+                defaultValue={userDataFromStore?.email || ""}
                 classname="w-full"
                 required
               />
@@ -77,7 +130,7 @@ const CheckoutPage = () => {
                 label="telephone"
                 name="phone"
                 type="search"
-                defaultValue={userDataFromStore?.user.phone || ""}
+                defaultValue={userDataFromStore?.phone || ""}
                 classname="w-full"
                 required
               />
@@ -87,7 +140,7 @@ const CheckoutPage = () => {
                 label="address"
                 name="address"
                 type="search"
-                defaultValue={userDataFromStore?.user.address || ""}
+                defaultValue={userDataFromStore?.address || ""}
                 classname="w-full"
                 required
               />
@@ -97,7 +150,7 @@ const CheckoutPage = () => {
                 label="zip"
                 name="zip"
                 type="search"
-                defaultValue={userDataFromStore?.user.zip || ""}
+                defaultValue={userDataFromStore?.zip || ""}
                 classname="w-full"
                 required
               />
@@ -105,7 +158,7 @@ const CheckoutPage = () => {
                 label="town"
                 name="town"
                 type="search"
-                defaultValue={userDataFromStore?.user.town || ""}
+                defaultValue={userDataFromStore?.town || ""}
                 classname="w-full"
                 required
               />
@@ -113,7 +166,7 @@ const CheckoutPage = () => {
                 label="country"
                 name="country"
                 type="search"
-                defaultValue={userDataFromStore?.user.country || ""}
+                defaultValue={userDataFromStore?.country || ""}
                 classname="w-full"
                 required
               />
@@ -188,5 +241,4 @@ const CheckoutPage = () => {
     </section>
   );
 };
-
 export default CheckoutPage;

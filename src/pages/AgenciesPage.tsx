@@ -2,7 +2,7 @@ import { apiUrl, localCustomFetch } from "@/axios/customFetch";
 import Title from "@/components/Title";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import type { Agency } from "@/types/types";
-import { Mail, MapPin, MapPinHouse, Phone } from "lucide-react";
+import { Mail, MapPinHouse, Phone } from "lucide-react";
 import { useLoaderData, type LoaderFunction } from "react-router-dom";
 
 export const agenciesLoader: LoaderFunction = async (): Promise<Agency[] | null> => {
@@ -17,7 +17,6 @@ export const agenciesLoader: LoaderFunction = async (): Promise<Agency[] | null>
 
 const AgenciesPage = () => {
   const agencies = useLoaderData() as Agency[];
-  console.log(agencies);
 
   return (
     <section className="my-8">

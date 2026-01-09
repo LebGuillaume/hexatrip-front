@@ -2,7 +2,7 @@ import axios from "axios";
 
 export let apiUrl: string = "";
 
-if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+if (import.meta.env.MODE === "development") {
 	apiUrl = "http://localhost:5137";
 } else {
 	apiUrl = "https://hexatrip-api.vercel.app";
@@ -21,7 +21,7 @@ localCustomFetch.interceptors.response.use(
 	(error) => {
 		//Else
 		console.log(error);
-		if (error.response && error.response.status === 400) {
+		if (error.response && (error.response.status === 401 || error.response.status === 403)) {
 			localStorage.removeItem("token");
 			localStorage.removeItem("user");
 			localStorage.removeItem("selection");

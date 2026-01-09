@@ -21,7 +21,6 @@ const Advisors = () => {
       try {
         const data = await fetchEntities(controller.signal);
         setEntities(data);
-        console.log(data);
       } catch (err: any) {
         // Ignore l'annulation (évite bruit console + cycles inutiles)
         if (err?.name === "CanceledError" || err?.code === "ERR_CANCELED") return;

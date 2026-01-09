@@ -8,7 +8,7 @@ export const registerAction: ActionFunction = async ({ request }): Promise<Respo
   try {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
-    console.log(data);
+
     await localCustomFetch.post<string>("auth/register", data);
     return redirect("/login");
   } catch (error) {

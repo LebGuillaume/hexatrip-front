@@ -17,7 +17,7 @@ export const advisorsSingleLoader: LoaderFunction = async ({ params }): Promise<
 
 const AdvisorsSinglePage = () => {
   const advisor = useLoaderData() as Advisor;
-  console.log(advisor);
+
   const navigate = useNavigate();
   return (
     <section className="">

@@ -27,7 +27,7 @@ import { loginAction } from "./pages/LoginPage";
 import { store } from "./store";
 import { profilepageLoader } from "./pages/ProfilePage";
 import { ConfirmProvider } from "material-ui-confirm";
-import { checkoutPageLoader } from "./pages/CheckoutPage";
+import { checkoutPageAction, checkoutPageLoader } from "./pages/CheckoutPage";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +65,7 @@ const router = createBrowserRouter([
         element: <CheckoutPage />,
         errorElement: <ErrorElement />,
         loader: checkoutPageLoader(store),
+        action: checkoutPageAction(store),
       },
       {
         path: "agencies",

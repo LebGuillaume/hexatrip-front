@@ -4,7 +4,7 @@ import TripCard from "./TripCard";
 
 const Research = () => {
   const { data } = useLoaderData() as ResearchLoaderType;
-  console.log(data);
+
   if (!data || data.length === 0) {
     return (
       <section className="align-center">

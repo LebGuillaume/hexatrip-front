@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "./ui/card";
 import type { Trip } from "@/types/types";
 import { apiUrl } from "@/axios/customFetch";
 import { regionsCodes } from "@/utils/filtersData";

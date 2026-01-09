@@ -37,12 +37,21 @@ export const profilepageLoader =
       return { ...responseProfile.data, orders: responseOrders.data };
     } catch (error) {
       console.log(error);
-      return null;
+      return redirect("/login");
     }
   };
 
 const ProfilePage = () => {
-  const profile = useLoaderData() as ProfilePageLoaderType;
+  const profile = useLoaderData() as ProfilePageLoaderType | null;
+  if (!profile) {
+    return (
+      <section className="min-h-[70vh]">
+        <div className="align-center my-8">
+          <p>Loading profile...</p>
+        </div>
+      </section>
+    );
+  }
   const { isLoading } = useAppSelector((state) => state.usersSlice.status);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
