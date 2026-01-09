@@ -92,7 +92,7 @@ const usersSlice = createSlice({
 			.addCase(deleteUser.fulfilled, (state) => {
 				state.status.isLoading = false;
 				state.user = defaultState.user;
-				localStorage.remove("user");
+				localStorage.removeItem("user");
 			});
 	},
 });

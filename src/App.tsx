@@ -22,6 +22,12 @@ import { ErrorElement } from "./components";
 import { researchLoader } from "./pages/ResearchPage";
 import { landingLoader } from "./pages/Landing";
 import { singleTripPageLoader } from "./pages/SingleTripPage";
+import { registerAction } from "./pages/RegisterPage";
+import { loginAction } from "./pages/LoginPage";
+import { store } from "./store";
+import { profilepageLoader } from "./pages/ProfilePage";
+import { ConfirmProvider } from "material-ui-confirm";
+import { checkoutPageLoader } from "./pages/CheckoutPage";
 
 const router = createBrowserRouter([
   {
@@ -54,7 +60,12 @@ const router = createBrowserRouter([
         loader: advisorsSingleLoader,
         errorElement: <ErrorElement />,
       },
-      { path: "checkout", element: <CheckoutPage />, errorElement: <ErrorElement /> },
+      {
+        path: "checkout",
+        element: <CheckoutPage />,
+        errorElement: <ErrorElement />,
+        loader: checkoutPageLoader(store),
+      },
       {
         path: "agencies",
         element: <AgenciesPage />,
@@ -62,12 +73,31 @@ const router = createBrowserRouter([
         errorElement: <ErrorElement />,
       },
       { path: "hotline", element: <HotlinePage />, errorElement: <ErrorElement /> },
-      { path: "profile", element: <ProfilePage />, errorElement: <ErrorElement /> },
+      {
+        path: "profile",
+        element: <ProfilePage />,
+        errorElement: (
+          <ConfirmProvider>
+            <ErrorElement />
+          </ConfirmProvider>
+        ),
+        loader: profilepageLoader(store),
+      },
     ],
     errorElement: <ErrorPage />,
   },
-  { path: "/login", element: <LoginPage />, errorElement: <ErrorPage /> },
-  { path: "/register", element: <RegisterPage />, errorElement: <ErrorPage /> },
+  {
+    path: "/login",
+    element: <LoginPage />,
+    errorElement: <ErrorPage />,
+    action: loginAction(store),
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+    errorElement: <ErrorPage />,
+    action: registerAction,
+  },
   { path: "/checkout-success", element: <CheckoutSuccessPage />, errorElement: <ErrorPage /> },
 ]);
 const App = () => {

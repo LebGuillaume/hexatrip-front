@@ -13,9 +13,10 @@ import { rangeDateFormatter } from "@/utils/singleTripData";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 /* import { useAppDispatch } from "@/hooks"; */
 import { cleanCheckout, setCheckout } from "@/features/checkout/checkoutSlice";
+import { useAppDispatch } from "@/hooks";
 
 const SingleTrip = () => {
-  /* const dispatch = useAppDispatch(); */
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const trip = useLoaderData() as Trip;
   const [photoIndex, setPhotoIndex] = useState(0);
@@ -39,7 +40,7 @@ const SingleTrip = () => {
   } = trip;
 
   useEffect(() => {
-    /* dispatch(cleanCheckout()); */
+    dispatch(cleanCheckout());
   }, []);
 
   const clampRangeToMaxDuration = (range: DateRange | undefined): DateRange => {
@@ -67,7 +68,7 @@ const SingleTrip = () => {
       adults,
       kids,
     };
-    /* dispatch(setCheckout(payload)); */
+    dispatch(setCheckout(payload));
   };
 
   return (
