@@ -5,7 +5,7 @@ export let apiUrl: string = "";
 if (import.meta.env.MODE === "development") {
 	apiUrl = "http://localhost:5137";
 } else {
-	apiUrl = "https://hexatrip-api.vercel.app";
+	apiUrl = "https://hexatrip-api-neon.vercel.app";
 }
 
 const localCustomFetch = axios.create({
